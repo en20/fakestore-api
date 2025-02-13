@@ -31,13 +31,14 @@ h1 {
 }
 
 .product-card {
-    background: white;
+    background: transparent;
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: visible;
     display: flex;
     flex-direction: column;
     height: 100%;
+    gap: 0.5rem;
+    position: relative;
 }
 
 .product-card img {
@@ -46,35 +47,73 @@ h1 {
     object-fit: contain;
     padding: 1rem;
     background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+/* Adiciona borda laranja quando o produto está no carrinho */
+.product-card.in-cart img {
+    border-color: orangered;
+}
+
+.cart-controls {
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(200px - 18px); /* Metade da altura do botão para dentro da imagem */
+    z-index: 2;
 }
 
 .product-info {
-    padding: 1rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    min-height: 80px; /* altura mínima para acomodar categoria + título + preço */
 }
 
 .product-title {
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 2.8em;
+    line-height: 1.2;
+    height: 2.4em; /* altura fixa para 2 linhas */
+    margin-bottom: 0;
+    word-break: break-word;
 }
 
 .product-price {
-    color: #666;
+    color: orangered;
     font-size: 1.1rem;
     font-weight: 600;
-    margin-top: auto;
-    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.quantity-selector {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: orangered;
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid orangered;
+    height: 36px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .add-to-cart {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,6 +125,8 @@ h1 {
     font-size: 0.9rem;
     gap: 0.5rem;
     transition: all 0.2s ease;
+    height: 36px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .add-to-cart:hover {
@@ -108,7 +149,15 @@ h1 {
 }
 
 .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.5rem;
+    padding-right: 2rem; /* Espaço para o botão de fechar */
+}
+
+.cart-header h2 {
+    margin: 0;
 }
 
 .cart-item {
@@ -128,6 +177,55 @@ h1 {
     border-radius: 8px;
 }
 
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.item-header h4 {
+    font-size: 0.9rem;
+    margin: 0;
+    flex: 1;
+}
+
+.item-quantity {
+    color: orangered;
+    font-weight: 500;
+}
+
+.item-prices {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.item-unit-price {
+    color: #666;
+    margin: 0;
+}
+
+.item-unit-price::after {
+    content: "•";
+    margin: 0 0.5rem;
+    color: #ddd;
+}
+
+.item-total-price {
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
 .quantity-controls {
     display: flex;
     align-items: center;
@@ -137,8 +235,32 @@ h1 {
 .quantity-controls button {
     background: none;
     border: none;
-    cursor: pointer;
     color: #666;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.quantity-controls button:hover {
+    color: orangered;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.item-quantity {
+    color: orangered;
+    font-weight: 500;
 }
 
 .cart-footer {
@@ -190,16 +312,64 @@ h1 {
     cursor: pointer;
 }
 
-.cart-count {
+.cart-icon .cart-count {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: red;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.cart-count-wrapper {
+    color: #666;
+    display: inline;
+}
+
+.cart-header .cart-count {
+    position: static;
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    display: inline;
+}
+
+/* Esconde os parênteses quando não há itens no carrinho */
+.cart-count-wrapper:empty {
+    display: none;
+}
+
+/* Mantém o cart-count do ícone do carrinho com o estilo original */
+.cart-icon .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: orangered;
     color: white;
     border-radius: 50%;
     padding: 0.2rem 0.5rem;
     font-size: 0.8rem;
 }
+
+/* Esconde o cart-count do ícone quando o carrinho está aberto */
+/* body.cart-open .cart-icon .cart-count {
+    display: none;
+} */
 
 .cart-modal {
     display: none;
@@ -232,14 +402,29 @@ h1 {
 
 /* Notificações */
 .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
     padding: 1rem;
     border-radius: 8px;
     color: white;
-    z-index: 1000;
     animation: slideIn 0.3s ease-out;
+    width: 300px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.notification:hover {
+    opacity: 0.9;
+    transform: translateX(-5px);
+}
+
+/* Container para as notificações */
+.notifications-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
 }
 
 @keyframes slideIn {
@@ -396,6 +581,73 @@ h1 {
         transform: translateX(0);
         visibility: visible;
     }
+
+    .categories-filter {
+        padding: 1rem;
+    }
+
+    .close-cart {
+        display: block;
+    }
+
+    .cart-section {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        width: 90%;
+        max-width: 400px;
+        max-height: 90vh; /* um pouco maior para melhor visualização */
+        overflow-y: auto;
+        background: white;
+        border-radius: 12px;
+        z-index: 1050;
+        padding: 1.5rem;
+        opacity: 0;
+        transition: all 0.3s ease;
+        margin: 0;
+    }
+
+    /* Quando o carrinho está aberto */
+    body.cart-open .cart-section {
+        display: block;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    body.cart-open .cart-overlay {
+        display: block;
+        opacity: 1;
+    }
+
+    /* Ajuste para garantir que o scroll funcione corretamente */
+    .cart-section::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .cart-section::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+
+    .cart-section::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .notification {
+        width: 200px;
+        padding: 0.75rem;
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+
+    .notifications-container {
+        top: 10px;
+        right: 10px;
+        gap: 5px;
+        max-width: 200px;
+    }
 }
 
 /* Desktop Styles */
@@ -444,7 +696,7 @@ h1 {
 }
 
 .quantity-btn:hover, .quantity-btn:focus {
-    background: #f0f0f0;
+    background: transparent;
     outline: none;
 }
 
@@ -463,40 +715,12 @@ h1 {
     outline: none;
 }
 
-.cart-controls {
-    width: 100%;
-}
-
-.quantity-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: orangered;
-    padding: 0.5rem;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-}
-
-.quantity-selector button {
-    background: white;
-    border: 1px solid #ddd;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1rem;
-    line-height: 1;
-    padding: 0;
-    transition: all 0.2s ease;
-}
-
 .quantity-selector button:hover {
-    background: #f0f0f0;
-    border-color: #999;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.quantity-selector button:hover i {
+    color: #333;
 }
 
 .quantity-selector span {
@@ -553,4 +777,77 @@ h1 {
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 1100;
+}
+
+.product-category {
+    font-size: 0.7rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+}
+
+.categories-filter {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    overflow-x: auto;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.category-btn {
+    display: block;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+    white-space: nowrap;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+    color: orangered;
+}
+
+.category-btn.active {
+    background: orangered;
+    color: white;
+}
+
+/* Estilizar melhor o botão de fechar */
+.close-cart {
+    display: none; /* Esconde no desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    transition: color 0.2s ease;
+}
+
+.close-cart:hover {
+    color: #333;
+}
+
+/* Overlay do carrinho */
+.cart-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px); /* Adiciona um leve desfoque ao fundo */
 } 

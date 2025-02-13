@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -17,6 +17,14 @@
         </div>
     </header>
 
+    <div class="categories-filter">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="men's clothing">Men's Clothing</button>
+        <button class="category-btn" data-category="women's clothing">Women's Clothing</button>
+        <button class="category-btn" data-category="jewelery">Jewelery</button>
+        <button class="category-btn" data-category="electronics">Electronics</button>
+    </div>
+
     <div class="container">
         <main class="products-section">
             <div class="products-grid">
@@ -25,8 +33,11 @@
         </main>
 
         <aside class="cart-section">
+            <button class="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
             <div class="cart-header">
-                <h2>Your Cart (<span class="cart-count">0</span>)</h2>
+                <h2>Your Cart <span class="cart-count-wrapper">(<span class="cart-count">0</span>)</span></h2>
             </div>
             <div class="cart-items">
                 <!-- Cart items will be inserted here -->
@@ -44,6 +55,9 @@
             </div>
         </aside>
     </div>
+
+    <!-- Adicionar o overlay do carrinho -->
+    <div class="cart-overlay"></div>
     <script src="app.js"></script>
 </body>
 </html>
