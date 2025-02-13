@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>All Products</h1>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="products-section">
+            <div class="products-grid">
+                <!-- Products will be inserted here -->
+            </div>
+        </main>
+
+        <aside class="cart-section">
+            <div class="cart-header">
+                <h2>Your Cart (<span class="cart-count">0</span>)</h2>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be inserted here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Order Total</span>
+                    <span class="total-amount">$<span id="cartTotal">0.00</span></span>
+                </div>
+                <div class="delivery-info">
+                    <img src="eco-icon.png" alt="Eco">
+                    <span>This is a carbon-neutral delivery</span>
+                </div>
+                <button class="confirm-order">Confirm Order</button>
+            </div>
+        </aside>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
